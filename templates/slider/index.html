@@ -1,38 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}Космическое агентство{% endblock %}
 
 {% block content %}
 
-<!-- Header / Navigation -->
+<!-- ===== Header / Navigation ===== -->
 <header class="site-header">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="{% url 'slider:index' %}">
-                <span class="brand-text">ПОРТФОЛИО</span>
+                <img src="{% static 'images/logo.svg' %}" alt="Logo" class="logo-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                <span class="logo-fallback" style="display:none;">
+                    <span class="logo-circle">
+                        <svg width="50" height="50" viewBox="0 0 50 50">
+                            <circle cx="25" cy="25" r="24" fill="none" stroke="#4d7fdb" stroke-width="1.5"/>
+                            <circle cx="25" cy="25" r="10" fill="#4d7fdb"/>
+                            <ellipse cx="25" cy="25" rx="22" ry="8" fill="none" stroke="#e94560" stroke-width="1.5" transform="rotate(-20 25 25)"/>
+                        </svg>
+                    </span>
+                </span>
             </a>
             <button class="navbar-toggler" type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
                     aria-expanded="false"
-                    aria-label="Переключатель навигации">
-                <span class="navbar-toggler-icon"></span>
+                    aria-label="Навигация">
+                <span class="navbar-toggler-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 6h18M3 12h18M3 18h18" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Главная</a>
+                        <a class="nav-link" href="#advantages">ПРЕИМУЩЕСТВА</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#gallery">Галерея</a>
+                        <a class="nav-link" href="#photos">ФОТОГРАФИИ</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">О нас</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contacts">Контакты</a>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-accent" href="/admin/">ВХОД</a>
                     </li>
                 </ul>
             </div>
@@ -40,13 +51,89 @@
     </nav>
 </header>
 
-<!-- Hero Section with Synced Slider -->
-<section id="gallery" class="slider-section">
+<!-- ===== Hero Section ===== -->
+<section class="hero-section">
     <div class="container">
-        <div class="section-heading">
-            <h2>Галерея работ</h2>
-            <p class="section-subtitle">Нажмите на изображение для полноэкранного просмотра</p>
+        <div class="hero-content text-center">
+            <h1 class="hero-title">Космическое агентство</h1>
+            <p class="hero-description">
+                Национальное управление по аэронавтике и исследованию космического
+                пространства — ведомство, относящееся к федеральному правительству
+                США и подчиняющееся непосредственно президенту США.
+            </p>
         </div>
+    </div>
+</section>
+
+<!-- ===== Advantages Section ===== -->
+<section id="advantages" class="advantages-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Earth Image -->
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="earth-image-wrapper">
+                    <img src="{% static 'images/earth.jpg' %}" alt="Земля"
+                         class="earth-image"
+                         onerror="this.src='https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=600&h=700&fit=crop';">
+                </div>
+            </div>
+            <!-- Feature Cards 2x2 Grid -->
+            <div class="col-lg-7">
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <path d="M8 40L20 28L28 36L40 20" stroke="#4d7fdb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M32 20H40V28" stroke="#4d7fdb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6 8L18 8L18 20" stroke="#e94560" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+                            </svg>
+                        </div>
+                        <p class="feature-text">Спейс шаттлы —<br>пилотируемые корабли</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <circle cx="24" cy="18" r="6" stroke="#4d7fdb" stroke-width="2.5"/>
+                                <path d="M24 24V40" stroke="#4d7fdb" stroke-width="2.5" stroke-linecap="round"/>
+                                <path d="M16 40H32" stroke="#4d7fdb" stroke-width="2.5" stroke-linecap="round"/>
+                                <path d="M30 12L38 6" stroke="#4d7fdb" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M36 4L40 8" stroke="#e94560" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <p class="feature-text">Лучшее<br>телескопическое<br>оборудование</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <path d="M30 18C30 24 24 30 18 30C18 24 24 18 30 18Z" stroke="#4d7fdb" stroke-width="2.5"/>
+                                <circle cx="24" cy="24" r="16" stroke="#4d7fdb" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+                                <circle cx="14" cy="20" r="2" fill="#e94560"/>
+                            </svg>
+                        </div>
+                        <p class="feature-text">Исследовательские<br>станции на Луне — шаг<br>к новым открытиям!</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <circle cx="24" cy="24" r="14" stroke="#4d7fdb" stroke-width="2.5"/>
+                                <path d="M24 14L26.5 20.5H33L28 25L30 32L24 27.5L18 32L20 25L15 20.5H21.5L24 14Z" fill="#4d7fdb"/>
+                            </svg>
+                        </div>
+                        <p class="feature-text">Золотая медаль<br>по научным<br>исследованиям</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Gold Divider ===== -->
+<div class="gold-divider"></div>
+
+<!-- ===== Photos / Slider Section ===== -->
+<section id="photos" class="photos-section">
+    <div class="container">
+        <h2 class="section-title text-center">Фотографии</h2>
 
         {% if slides %}
         <div class="slider-wrapper">
@@ -65,129 +152,36 @@
                 {% endfor %}
             </div>
 
-            <!-- Thumbnail Nav Slider -->
-            <div class="slider-nav">
-                {% for slide in slides %}
-                <div class="slide-thumb-item">
-                    <img src="{{ slide.image_url }}"
-                         alt="{{ slide.alt_text|default:slide.title }}"
-                         class="slide-img-thumb" />
+            <!-- Thumbnail Nav Slider with custom red arrows -->
+            <div class="slider-nav-wrapper">
+                <button class="slider-nav-arrow slider-nav-prev" aria-label="Назад">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M12 3L6 9L12 15" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="slider-nav">
+                    {% for slide in slides %}
+                    <div class="slide-thumb-item">
+                        <img src="{{ slide.image_url }}"
+                             alt="{{ slide.alt_text|default:slide.title }}"
+                             class="slide-img-thumb" />
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                <button class="slider-nav-arrow slider-nav-next" aria-label="Вперед">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M6 3L12 9L6 15" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
             </div>
         </div>
         {% else %}
-        <div class="alert alert-info text-center" role="alert">
-            Слайды пока не добавлены. Перейдите в
-            <a href="/admin/slider/sliderimage/" class="alert-link">админ-панель</a>
-            для добавления изображений.
+        <div class="empty-slider-notice">
+            <p>Слайды пока не добавлены.</p>
+            <p>Перейдите в <a href="/admin/slider/sliderimage/">админ-панель</a> для добавления изображений.</p>
         </div>
         {% endif %}
     </div>
 </section>
-
-<!-- About Section -->
-<section id="about" class="about-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="section-heading text-start">
-                    <h2>О проекте</h2>
-                </div>
-                <p class="about-text">
-                    Данный проект представляет собой веб-приложение, построенное
-                    на Django 5.2 с использованием Bootstrap 5 и MySQL.
-                    Слайдер изображений реализован на базе Slick Slider с синхронизацией
-                    основного и навигационного слайдеров. Управление контентом
-                    осуществляется через удобную административную панель Django.
-                </p>
-                <p class="about-text">
-                    Для загрузки и управления изображениями используется
-                    django-filer, а для сортировки записей методом drag&drop —
-                    django-admin-sortable2.
-                </p>
-                <a href="/admin/" class="btn btn-custom mt-3">Перейти в админку</a>
-            </div>
-            <div class="col-lg-6">
-                <div class="about-features">
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <div>
-                            <h5>Django 5.2</h5>
-                            <p>Современный backend-фреймворк</p>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎨</div>
-                        <div>
-                            <h5>Bootstrap 5</h5>
-                            <p>Адаптивная верстка</p>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🖼️</div>
-                        <div>
-                            <h5>Slick Slider</h5>
-                            <p>Синхронизированный слайдер</p>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🗃️</div>
-                        <div>
-                            <h5>MySQL</h5>
-                            <p>Надежная база данных</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contacts Section -->
-<section id="contacts" class="contacts-section">
-    <div class="container">
-        <div class="section-heading">
-            <h2>Контакты</h2>
-            <p class="section-subtitle">Свяжитесь с нами для сотрудничества</p>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="contact-cards">
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="contact-card text-center">
-                                <div class="contact-icon">📧</div>
-                                <h6>Email</h6>
-                                <p>info@example.com</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="contact-card text-center">
-                                <div class="contact-icon">📱</div>
-                                <h6>Телефон</h6>
-                                <p>+7 (999) 123-45-67</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="contact-card text-center">
-                                <div class="contact-icon">📍</div>
-                                <h6>Адрес</h6>
-                                <p>Москва, Россия</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="site-footer">
-    <div class="container text-center">
-        <p>&copy; {{ year|default:"2026" }} Портфолио. Django + Bootstrap 5.</p>
-    </div>
-</footer>
 
 {% endblock %}

@@ -1,28 +1,36 @@
 $(document).ready(function () {
 
     // ===== Slick Slider Syncing =====
-    // Main slider (large image)
+
+    // Main slider — large image, fade transition, synced with nav
     $('.slider-main').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
-        arrows: true,
+        arrows: false,
         fade: true,
         asNavFor: '.slider-nav',
-        adaptiveHeight: true,
+        adaptiveHeight: false,
         speed: 500,
+        infinite: true,
     });
 
-    // Thumbnail navigation slider (synced with main)
+    // Thumbnail navigation slider — synced with main
     $('.slider-nav').slick({
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 1,
         asNavFor: '.slider-main',
         dots: false,
-        arrows: false,
+        arrows: false,           // We use custom external arrows
         centerMode: false,
         focusOnSelect: true,
         infinite: true,
         responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 4,
+                }
+            },
             {
                 breakpoint: 768,
                 settings: {
@@ -38,12 +46,19 @@ $(document).ready(function () {
         ]
     });
 
+    // Custom red circular arrow buttons → control the nav slider
+    $('.slider-nav-prev').on('click', function () {
+        $('.slider-nav').slick('slickPrev');
+    });
+
+    $('.slider-nav-next').on('click', function () {
+        $('.slider-nav').slick('slickNext');
+    });
+
     // ===== Fancybox — fullscreen gallery on click =====
     if (typeof Fancybox !== 'undefined') {
         Fancybox.bind('[data-fancybox="gallery"]', {
-            // Gallery cycling
             infinite: true,
-            // Toolbar buttons
             Toolbar: {
                 display: {
                     left: ['infobar'],
@@ -51,32 +66,16 @@ $(document).ready(function () {
                     right: ['slideshow', 'thumbs', 'close'],
                 },
             },
-            // Thumbnails strip inside Fancybox
             Thumbs: {
                 type: 'classic',
             },
-            // Keyboard navigation
-            Keyboard: {
-                Escape: 'close',
-                Delete: 'close',
-                Backspace: 'close',
-                PageUp: 'next',
-                PageDown: 'prev',
-                ArrowUp: 'next',
-                ArrowDown: 'prev',
-                ArrowRight: 'next',
-                ArrowLeft: 'prev',
-            },
-            // Animations
             showClass: 'f-fadeIn',
             hideClass: 'f-fadeOut',
-            // Sync Fancybox with Slick: when Fancybox slide changes,
-            // jump to the corresponding Slick slide
+            // Sync Fancybox with Slick on slide change
             on: {
                 'Carousel.change': function (fancybox, carousel, to) {
-                    var index = to;
                     if ($('.slider-main').length) {
-                        $('.slider-main').slick('slickGoTo', index);
+                        $('.slider-main').slick('slickGoTo', to);
                     }
                 },
             },
@@ -92,19 +91,5 @@ $(document).ready(function () {
                 scrollTop: target.offset().top - 70
             }, 600);
         }
-    });
-
-    // ===== Navbar active state on scroll =====
-    $(window).on('scroll', function () {
-        var scrollPos = $(window).scrollTop() + 100;
-        $('section[id]').each(function () {
-            var sectionTop = $(this).offset().top;
-            var sectionBottom = sectionTop + $(this).outerHeight();
-            var id = $(this).attr('id');
-            if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
-                $('.navbar-nav .nav-link').removeClass('active');
-                $('.navbar-nav .nav-link[href="#' + id + '"]').addClass('active');
-            }
-        });
     });
 });
