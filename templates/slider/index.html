@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+
+<!-- Header / Navigation -->
+<header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'slider:index' %}">
+                <span class="brand-text">ПОРТФОЛИО</span>
+            </a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Галерея</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacts">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Hero Section with Synced Slider -->
+<section id="gallery" class="slider-section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Галерея работ</h2>
+            <p class="section-subtitle">Нажмите на изображение для полноэкранного просмотра</p>
+        </div>
+
+        {% if slides %}
+        <div class="slider-wrapper">
+            <!-- Main Slider (big image) -->
+            <div class="slider-main">
+                {% for slide in slides %}
+                <div class="slide-item">
+                    <a href="{{ slide.image_url }}"
+                       data-fancybox="gallery"
+                       data-caption="{{ slide.title }}">
+                        <img src="{{ slide.image_url }}"
+                             alt="{{ slide.alt_text|default:slide.title }}"
+                             class="slide-img-main" />
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Thumbnail Nav Slider -->
+            <div class="slider-nav">
+                {% for slide in slides %}
+                <div class="slide-thumb-item">
+                    <img src="{{ slide.image_url }}"
+                         alt="{{ slide.alt_text|default:slide.title }}"
+                         class="slide-img-thumb" />
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info text-center" role="alert">
+            Слайды пока не добавлены. Перейдите в
+            <a href="/admin/slider/sliderimage/" class="alert-link">админ-панель</a>
+            для добавления изображений.
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section-heading text-start">
+                    <h2>О проекте</h2>
+                </div>
+                <p class="about-text">
+                    Данный проект представляет собой веб-приложение, построенное
+                    на Django 5.2 с использованием Bootstrap 5 и MySQL.
+                    Слайдер изображений реализован на базе Slick Slider с синхронизацией
+                    основного и навигационного слайдеров. Управление контентом
+                    осуществляется через удобную административную панель Django.
+                </p>
+                <p class="about-text">
+                    Для загрузки и управления изображениями используется
+                    django-filer, а для сортировки записей методом drag&drop —
+                    django-admin-sortable2.
+                </p>
+                <a href="/admin/" class="btn btn-custom mt-3">Перейти в админку</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div>
+                            <h5>Django 5.2</h5>
+                            <p>Современный backend-фреймворк</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <div>
+                            <h5>Bootstrap 5</h5>
+                            <p>Адаптивная верстка</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🖼️</div>
+                        <div>
+                            <h5>Slick Slider</h5>
+                            <p>Синхронизированный слайдер</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🗃️</div>
+                        <div>
+                            <h5>MySQL</h5>
+                            <p>Надежная база данных</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contacts Section -->
+<section id="contacts" class="contacts-section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Контакты</h2>
+            <p class="section-subtitle">Свяжитесь с нами для сотрудничества</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-cards">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="contact-card text-center">
+                                <div class="contact-icon">📧</div>
+                                <h6>Email</h6>
+                                <p>info@example.com</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="contact-card text-center">
+                                <div class="contact-icon">📱</div>
+                                <h6>Телефон</h6>
+                                <p>+7 (999) 123-45-67</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="contact-card text-center">
+                                <div class="contact-icon">📍</div>
+                                <h6>Адрес</h6>
+                                <p>Москва, Россия</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container text-center">
+        <p>&copy; {{ year|default:"2026" }} Портфолио. Django + Bootstrap 5.</p>
+    </div>
+</footer>
+
+{% endblock %}
